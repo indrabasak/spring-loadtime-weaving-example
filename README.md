@@ -104,6 +104,58 @@ public class BookService {
 }
 ```
 
+### Aspect Filter Examples
+This example also includes couple of examples on how to apply aspect conditionally
+based on either the called method's annotation or by name.
+
+1. Filter by caller's method tagged with a certain type of annotation,
+
+```java
+@Aspect
+public class FilterCallerAnnotationAspect {
+
+    private static final Logger
+            log = LoggerFactory.getLogger(FilterCallerAnnotationAspect.class);
+
+    @Before("call(* com.basaki.service.UselessService.sayHello(..))" +
+            "  && cflow(@annotation(trx))")
+    public void inspectMethod(JoinPoint jp,
+            JoinPoint.EnclosingStaticPart esjp, Transactional trx) {
+        log.info(
+                "Entering FilterCallerAnnotationAspect.inspectMethod() in class "
+                        + jp.getSignature().getDeclaringTypeName()
+                        + " - method: " + jp.getSignature().getName());
+    }
+}
+```
+
+This aspect will only be applied when the `service` method of `UselessService`
+class is called from methods annotated with Spring's `Transactional` annotation.
+
+1. Filter by caller's method's name,
+
+```java
+@Aspect
+public class FilterCallerMethodAspect {
+
+    private static final Logger
+            log = LoggerFactory.getLogger(FilterCallerMethodAspect.class);
+
+    @Before("call(* com.basaki.service.UselessService.sayHello(..))" +
+            "  && cflow(execution(* com.basaki.service.BookService.read(..)))")
+    public void inspectMethod(JoinPoint jp,
+            JoinPoint.EnclosingStaticPart esjp) {
+        log.info(
+                "Entering FilterCallerMethodAspect.inspectMethod() in class "
+                        + jp.getSignature().getDeclaringTypeName()
+                        + " - method: " + jp.getSignature().getName());
+    }
+}
+```
+
+This aspect will only be applied when the `service` method of `UselessService`
+class is called from `read` method of `BookService`.
+
 ### Dependency Requirements
 
 #### AspectJ Runtime Library
