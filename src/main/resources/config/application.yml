@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+
+# For Spring Actuator /info endpoint
+info:
+    artifact: spring-loadtime-weaving-example
+    name: spring-loadtime-weaving-example
+    description: Spring Load-Time Weaving Example
+    version: 1.0.0
+
+#Exposes Spring actuator endpoints
+management:
+  health:
+    diskspace:
+      enabled: true
+    db:
+      enabled: true
+    defaults:
+      enabled: true
+    details:
+      enabled: true
+    application:
+      enabled: true
+  endpoint:
+    health:
+      enabled: true
+      show-details: true
+  endpoints:
+    web:
+      base-path: /
+      expose: "*"
+
+
+
+#logging:
+#  level:
+#    org.springframework: DEBUG
+
+
+
+
+

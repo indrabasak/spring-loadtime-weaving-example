@@ -1,0 +1,9 @@
+<aspectj>
+    <aspects>
+        <aspect name="com.basaki.aspect.CustomAnnotationAspect"/>
+        <weaver options="-verbose -showWeaveInfo">
+            <include within="com.basaki.service.*"/>
+            <include within="com.basaki.aspect.*"/>
+        </weaver>
+    </aspects>
+</aspectj>
