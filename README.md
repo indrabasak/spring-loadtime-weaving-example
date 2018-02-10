@@ -8,9 +8,15 @@ This is an example of Spring Boot load time weaving with AspectJ. It's the
 continuation of the previous [Spring Boot source weaving example](https://github.com/indrabasak/spring-source-weaving-example).
 
 ### Load Time Weaving
-TODO
+Load-time weaving (LTW) is a type of binary weaving where compiled Java classes
+are taken as an input during runtime instead of compile time. The classes
+are weaved as the classes are loaded by the Java Virtual Machine (JVM).
 
+The LTW weaves the classes using Java Agent. A Java Agent intercepts the classes 
+while they are being loaded by the JVM. The intercepted classes are redefined
+by bytecode instrumentation.
 
+![](./img/aspectj-loadtime-weaving.svg)
 
 ### When do you need load-time weaving?
 TODO
