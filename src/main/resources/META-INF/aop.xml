@@ -1,6 +1,9 @@
 <aspectj>
     <aspects>
         <aspect name="com.basaki.aspect.CustomAnnotationAspect"/>
+        <aspect name="com.basaki.aspect.FilterCallerMethodAspect"/>
+        <aspect name="com.basaki.aspect.FilterCallerAnnotationAspect"/>
+
         <weaver options="-verbose -showWeaveInfo">
             <include within="com.basaki.service.*"/>
             <include within="com.basaki.aspect.*"/>

@@ -25,20 +25,25 @@ public class BookService {
     private static final Logger
             log = LoggerFactory.getLogger(BookService.class);
 
-    private BookRepository repository;
+    private final BookRepository repository;
+
+    private final UselessService service;
 
     @Autowired
-    public BookService(BookRepository repository) {
+    public BookService(BookRepository repository, UselessService service) {
         this.repository = repository;
+        this.service = service;
     }
 
     @Transactional
     public Book create(BookRequest request) {
+        service.sayHello("BookService.request");
         Book entity = validateRequest(request);
         return repository.save(entity);
     }
 
     public Book read(UUID id) {
+        service.sayHello("BookService.read");
         return repository.getOne(id);
     }
 
