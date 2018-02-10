@@ -8,18 +8,23 @@ This is an example of Spring Boot load time weaving with AspectJ. It's the
 continuation of the previous [Spring Boot source weaving example](https://github.com/indrabasak/spring-source-weaving-example).
 
 ### Load Time Weaving
-Load-time weaving (LTW) is a type of binary weaving where compiled Java classes
-are taken as an input during runtime instead of compile time. The classes
-are weaved as the classes are loaded by the Java Virtual Machine (JVM).
+The load-time weaving is a type of binary weaving where compiled Java classes
+are taken as an input at runtime instead of compile time. The classes
+are weaved as they are loaded by the Java Virtual Machine (JVM).
 
-The LTW weaves the classes using Java Agent. A Java Agent intercepts the classes 
-while they are being loaded by the JVM. The intercepted classes are redefined
-by bytecode instrumentation.
+The load-time weaving process weaves classes with the help of Java Agent. A Java Agent 
+intercepts the classes while they are being loaded by the JVM. The intercepted 
+classes are instrumented (bytecode is modified) by the agent based on 
+the AspectJ definitions contained in a meta file named `aop.xml`. The `aop.xml` 
+file should be in the classpath in order to be picked up by the agent.
 
 ![](./img/aspectj-loadtime-weaving.svg)
 
 ### When do you need load-time weaving?
-TODO
+THe load-time weaving is useful when aspects are required at certain times but not
+all the times. For example, monitoring application performance or investigating
+thread deadlocks, etc. This way you can keep your application source code free of
+aspect related code.
 
 ```java
 @Target({ElementType.METHOD})
@@ -33,8 +38,8 @@ public @interface CustomAnnotation {
 1. A `CustomAnnotationAspect` aspect to intercept any method marked with
 `@CustomAnnotation`. It prints out the name of the intercepted class and method.
 **Note:** Unlike the previous [source weaving example](https://github.com/indrabasak/spring-source-weaving-example),
-the `CustomAnnotationAspect` aspect do not have the Spring `@Component`
-annotation since it's not going to be a Spring bean.
+this `CustomAnnotationAspect` aspect do not have the Spring `@Component`
+annotation since it's not going to be deployed as a bean.
 
 ```java
 @Aspect
@@ -186,15 +191,15 @@ mvn clean install
 ```
 
 ### Run
-You will need to use the `-javaagent:` JVM argument whenever you run the 
-executable Spring Boot jar. Here is the command for running the application.
+You need to use the `-javaagent:` JVM argument whenever you run the 
+executable Spring Boot jar. 
 
-In the example shown below, it's expected that the `aspectjweaver.jar` 
-is located in the `lib` directory.
-
+Here is the command to run the application:
 ```
 java -javaagent:lib/aspectjweaver-1.8.13.jar -jar spring-loadtime-weaving-example-1.0.0.jar
 ```
+In the example shown below, it's expected that the `aspectjweaver.jar` 
+is located in the `lib` directory.
 
 ### Usage
 Once the application starts up at port `8080`, you can access the swagger UI at 
@@ -209,7 +214,6 @@ terminal:
 2018-02-09 17:11:38.193  INFO 51061 --- [nio-8080-exec-1] c.basaki.aspect.CustomAnnotationAspect   : Entering CustomAnnotationAspect.inspectMethod() in class com.basaki.service.BookService - method: validateRequest description: Validates book request.
 2018-02-09 17:11:38.194  INFO 51061 --- [nio-8080-exec-1] com.basaki.service.BookService           : Validating book request!
 ```
-
 
 [travis-badge]: https://travis-ci.org/indrabasak/spring-loadtime-weaving-example.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/indrabasak/spring-loadtime-weaving-example/
