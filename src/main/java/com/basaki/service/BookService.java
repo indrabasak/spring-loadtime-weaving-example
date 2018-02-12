@@ -3,6 +3,7 @@ package com.basaki.service;
 import com.basaki.annotation.CustomAnnotation;
 import com.basaki.data.entity.Book;
 import com.basaki.data.repository.BookRepository;
+import com.basaki.error.exception.DataNotFoundException;
 import com.basaki.model.BookRequest;
 import java.util.UUID;
 import org.slf4j.Logger;
@@ -44,7 +45,12 @@ public class BookService {
 
     public Book read(UUID id) {
         service.sayHello("BookService.read");
-        return repository.getOne(id);
+        try {
+            return repository.getOne(id);
+        } catch (Exception e) {
+            throw new DataNotFoundException(
+                    "Book with ID " + id + " not found.");
+        }
     }
 
     @CustomAnnotation(description = "Validates book request.")

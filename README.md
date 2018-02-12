@@ -1,4 +1,7 @@
 [![Build Status][travis-badge]][travis-badge-url]
+[![Quality Gate][sonarqube-badge]][sonarqube-badge-url] 
+[![Technical debt ratio][technical-debt-ratio-badge]][technical-debt-ratio-badge-url] 
+[![Coverage][coverage-badge]][coverage-badge-url]
 
 ![](./img/aspectj-loadtime-weaving-logo.svg)
 
@@ -269,3 +272,12 @@ terminal:
 
 [travis-badge]: https://travis-ci.org/indrabasak/spring-loadtime-weaving-example.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/indrabasak/spring-loadtime-weaving-example/
+
+[sonarqube-badge]: https://sonarcloud.io/api/badges/gate?key=com.basaki:spring-loadtime-weaving-example
+[sonarqube-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-loadtime-weaving-example 
+
+[technical-debt-ratio-badge]: https://sonarcloud.io/api/badges/measure?key=com.basaki:spring-loadtime-weaving-example&metric=sqale_debt_ratio
+[technical-debt-ratio-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-loadtime-weaving-example 
+
+[coverage-badge]: https://sonarcloud.io/api/badges/measure?key=com.basaki:spring-loadtime-weaving-example&metric=coverage
+[coverage-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-loadtime-weaving-example
